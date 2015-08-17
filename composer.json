@@ -1,5 +1,5 @@
 {
-    "name": "itcube/functions",
+    "name": "itcube/help-functions",
     "description": "Helpfull functions for PHP 5.3+",
     "require": {
         "php": ">=5.3"
