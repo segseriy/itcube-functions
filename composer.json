@@ -1,0 +1,19 @@
+{
+    "name": "itcube/functions",
+    "description": "Helpfull functions for PHP 5.3+",
+    "require": {
+        "php": ">=5.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergey Khrystenko",
+            "email": "sergseriy@gmail.com"
+        },
+        {
+            "name": "Andrey Khrystenko",
+            "email": "andreywm@ukr.net"
+        }
+    ],
+    "minimum-stability": "stable"
+}
