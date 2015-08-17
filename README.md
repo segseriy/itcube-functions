@@ -1,5 +1,5 @@
 # itcube-functions
-itcube-functions
+Itcube help functions
 
 To install this library please follow the next steps:
 
