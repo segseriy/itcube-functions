@@ -23,7 +23,7 @@ namespace itcube{
          * @param $form3
          * @return mixed
          */
-        public static function format_by_count($count, $form1, $form2, $form3) //(кол-во, для 1, для 4, для 5)
+        public static function format_by_count($count, $form1, $form2, $form3) //(count, word for count = 1, word for count = 4, word for count = 5)
         {
             $count = abs($count) % 100;
             $lcount = $count % 10;
