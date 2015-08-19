@@ -1,5 +1,5 @@
 <?php namespace itcube {
-
+    use \itcube;
     /**
      * Class Log
      * @package itcube
@@ -76,7 +76,7 @@
                             $j++;
                         }
 
-                        \itcube\Functions::gz_file_pack(LOGS_DIR . DIR_SEP . 'app.log.txt', $logfile_out);
+                        Functions::gz_file_pack(LOGS_DIR . DIR_SEP . 'app.log.txt', $logfile_out);
                         //gz_file_pack(LOGS_DIR . DIR_SEP . 'app.log.txt', $logfile_out);
                         @unlink(LOGS_DIR . DIR_SEP . 'app.log.txt');
                         @file_put_contents( LOGS_DIR . DIR_SEP . 'app.log.txt', '' );

@@ -75,9 +75,9 @@ namespace itcube{
         }
 
         /**
-         * $_array - incomin array
-         * $_arrays_count - count outcomin arrays
-         * return array[$_arrays_count]
+         * @param $_array - incomin array
+         * @param $_arrays_count - count outcomin arrays
+         * @return array[$_arrays_count]
          */
         public static function split_array($_array,$_arrays_count=2){
             //DebugBreak();
@@ -201,11 +201,16 @@ namespace itcube{
          */
         public static function set_http_status($code)
         {
-            $status = get_http_status($code);
+            /*$status = get_http_status($code);
 
             if( $status != false and !headers_sent() ) {
                 header('HTTP/1.1 ' . $status);
                 header('Status: ' . $status);
+                return true;
+            }*/
+
+            if( !headers_sent() ){
+                http_response_code($code);
                 return true;
             }
 
