@@ -29,8 +29,8 @@ function itcube_Loader($className){
         require($file_path);
         return true;
     }
+    return false;
 }
 
 
 spl_autoload_register('itcube_Loader');
-?>

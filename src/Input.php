@@ -1,5 +1,5 @@
 <?php namespace itcube {
-
+    use \itcube;
     /**
      * Class Input
      * @package itcube
@@ -33,25 +33,25 @@
             $this->properties = array();
             $this->server     = $_SERVER;
 
-            if( isset($_POST) && \itcube\Functions::array_count($_POST) > 0 ) {
+            if( isset($_POST) && Functions::array_count($_POST) > 0 ) {
                 foreach($_POST as $key=>$val) {
                     $this->properties['POST'][ $this->_clean_key($key) ] = $this->_clean_val($val);
                 }
             }
 
-            if( isset($_GET) && \itcube\Functions::array_count($_GET) > 0 ) {
+            if( isset($_GET) && Functions::array_count($_GET) > 0 ) {
                 foreach($_GET as $key=>$val) {
                     $this->properties['GET'][ $this->_clean_key($key) ] = $this->_clean_val($val);
                 }
             }
 
-            if( isset($_COOKIE) && \itcube\Functions::array_count($_COOKIE) > 0 ) {
+            if( isset($_COOKIE) && Functions::array_count($_COOKIE) > 0 ) {
                 foreach($_COOKIE as $key=>$val) {
                     $this->properties['COOKIE'][ $this->_clean_key($key) ] = $this->_clean_val($val);
                 }
             }
 
-            if( isset($_FILES) && \itcube\Functions::array_count($_FILES) > 0 ) {
+            if( isset($_FILES) && Functions::array_count($_FILES) > 0 ) {
                 foreach($_FILES as $key=>$val) {
                     $this->properties['FILES'][ $this->_clean_key($key) ] = $this->_clean_val($val);
                 }
@@ -217,9 +217,9 @@
                 return $_array;
             }
 
-            if( get_magic_quotes_gpc() ) {
+            /*if( get_magic_quotes_gpc() ) {
                 $str = stripslashes($str);
-            }
+            }*/
 
             return preg_replace("/\015\012|\015|\012/", "\n", $str);
         }
