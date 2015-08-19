@@ -201,16 +201,11 @@ namespace itcube{
          */
         public static function set_http_status($code)
         {
-            /*$status = get_http_status($code);
+            $status = self::get_http_status($code);
 
             if( $status != false and !headers_sent() ) {
                 header('HTTP/1.1 ' . $status);
                 header('Status: ' . $status);
-                return true;
-            }*/
-
-            if( !headers_sent() ){
-                http_response_code($code);
                 return true;
             }
 
@@ -365,7 +360,173 @@ namespace itcube{
                 $file_extension = false;
             }
             return $file_extension;
-        }// get_file_extension                                                                                   
+        }// get_file_extension
+
+        /**
+         * zip files
+         *
+         * @param array $_files  - массив полных путей к файлам
+         * @param string $_zip_name - полный путь к файлу архива
+         * @return bool
+         */
+        public static function zip_files(array $_files, $_zip_name) {
+            if( $_zip_name == '' ){
+                return false;
+            }
+            if( extension_loaded('zip') ){
+                $zip = new \ZipArchive();
+                if( $zip->open($_zip_name, \ZipArchive::CREATE)!==true ){
+                    return false;
+                }
+                foreach( $_files as $item ){
+                    $zip->addFile($item,basename($item));
+                }
+                $zip->close();
+                return file_exists($_zip_name);
+            }else{
+                return false;
+            }
+        }// zip_files
+
+        /**
+         * @param $str
+         * @return mixed
+         */
+        public static function pregtrim($str) {
+            return preg_replace("/[^\x20-\xFF]/","",@strval($str));
+        } //pregtrim
+
+        /**
+         * @param $url
+         * @return bool|mixed|string
+         */
+        public static function checkurl($url) {
+            // режем левые символы и крайние пробелы
+            $url=trim(self::pregtrim($url));
+            // если пусто - выход
+            if (strlen($url)==0) return false;
+            //проверяем УРЛ на правильность
+            if (!preg_match("~^(?:(?:https?|ftp|telnet)://(?:[a-z0-9_-]{1,32}".
+                "(?::[a-z0-9_-]{1,32})?@)?)?(?:(?:[a-z0-9-]{1,128}\.)+(?:com|net|".
+                "org|mil|edu|arpa|gov|biz|info|aero|inc|name|[a-z]{2})|(?!0)(?:(?".
+                "!0[^.]|255)[0-9]{1,3}\.){3}(?!0|255)[0-9]{1,3})(?:/[a-z0-9.,_@%&".
+                "?+=\~/-]*)?(?:#[^ '\"&<>]*)?$~i",$url,$ok))
+                return false; // если не правильно - выход
+            // если нет протокала - добавить
+            if (!strstr($url,"://")) $url="http://".$url;
+            // заменить протокол на нижний регистр: hTtP -> http
+            $url=preg_replace("~^[a-z]+~ie","strtolower('\\0')",$url);
+            return $url;
+        }  //checkurl
+
+        /**
+         * Get ststus by code number
+         *
+         * @param integer $code
+         * @return string
+         */
+        public static function get_http_status($code)
+        {
+            if( !is_numeric($code) ){ return false;}
+
+            $_HTTP_STATUS = array (
+                100 => '100 Continue',
+                101 => '101 Switching Protocols',
+                102 => '102 Processing',
+                200 => '200 OK',
+                201 => '201 Created',
+                202 => '202 Accepted',
+                203 => '203 Non-nCore_Authoritative Information',
+                204 => '204 No Content',
+                205 => '205 Reset Content',
+                206 => '206 Partial Content',
+                207 => '207 Multi Status',
+                226 => '226 IM Used',
+                300 => '300 Multiple Choices',
+                301 => '301 Moved Permanently',
+                302 => '302 Found',
+                303 => '303 See Other',
+                304 => '304 Not Modified',
+                305 => '305 Use Proxy',
+                306 => '306 (Unused)',
+                307 => '307 Temporary Redirect',
+                400 => '400 Bad Request',
+                401 => '401 Unauthorized',
+                402 => '402 Payment Required',
+                403 => '403 Forbidden',
+                404 => '404 Not Found',
+                405 => '405 Method Not Allowed',
+                406 => '406 Not Acceptable',
+                407 => '407 Proxy nCore_Authentication Required',
+                408 => '408 Request Timeout',
+                409 => '409 Conflict',
+                410 => '410 Gone',
+                411 => '411 Length Required',
+                412 => '412 Precondition Failed',
+                413 => '413 Request Entity Too Large',
+                414 => '414 Request-URI Too Long',
+                415 => '415 Unsupported Media Type',
+                416 => '416 Requested Range Not Satisfiable',
+                417 => '417 Expectation Failed',
+                420 => '420 Policy Not Fulfilled',
+                421 => '421 Bad Mapping',
+                422 => '422 Unprocessable Entity',
+                423 => '423 Locked',
+                424 => '424 Failed Dependency',
+                426 => '426 Upgrade Required',
+                449 => '449 Retry With',
+                500 => '500 Internal Server Error',
+                501 => '501 Not Implemented',
+                502 => '502 Bad Gateway',
+                503 => '503 Service Unavailable',
+                504 => '504 Gateway Timeout',
+                505 => '505 HTTP Version Not Supported',
+                506 => '506 Variant Also Varies',
+                507 => '507 Insufficient Storage',
+                509 => '509 Bandwidth Limit Exceeded',
+                510 => '510 Not Extended'
+            );
+
+            if( !empty($_HTTP_STATUS[$code]) ) {
+                return $_HTTP_STATUS[$code];
+            }
+
+            return false;
+        }
+
+        public static function memory_clear()
+        {
+            if( function_exists('gc_collect_cycles') ) {
+                gc_enable();
+                $_ = gc_collect_cycles();
+                gc_disable();
+
+                return (int)$_;
+            }
+
+            return 0;
+        }
+
+        /**
+         * @param $obj
+         * @return bool
+         */
+        public static function obj_to_array( $obj )
+        {
+            if( !is_object($obj) ) return false;
+
+            $publics = function($obj) {
+                return get_object_vars($obj);
+            };
+
+            $values = $publics($obj);
+
+            foreach($values as $key=>$val) {
+                if( is_object($val) ) $values[ $key ] = obj_to_array($val);
+            }
+
+            return $values;
+        }
 
     }//class Functions
 }//namespace
