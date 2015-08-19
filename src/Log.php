@@ -15,7 +15,7 @@
          */
         protected static $_instance;
 
-        function __construct($logDir = NULL)
+        function __construct($logDir)
         {
             $this->_logs   = array();
             $this->_writed = false;
@@ -100,12 +100,13 @@
         }
 
         /**
+         * @param $logDir null|string
          * @return Log
          */
-        public static function Instance()
+        public static function Instance($logDir = NULL)
         {
             if( null === self::$_instance ) {
-                self::$_instance = new self();
+                self::$_instance = new self($logDir);
             }
 
             return self::$_instance;
