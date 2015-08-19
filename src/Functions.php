@@ -365,7 +365,7 @@ namespace itcube{
                 $file_extension = false;
             }
             return $file_extension;
-        }// get_file_extension                                                                                   
+        }// get_file_extension
 
     }//class Functions
 }//namespace
