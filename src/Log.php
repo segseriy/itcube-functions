@@ -15,10 +15,16 @@
          */
         protected static $_instance;
 
-        function __construct()
+        function __construct($logDir = NULL)
         {
             $this->_logs   = array();
             $this->_writed = false;
+
+            if( !is_null($logDir) ){
+                define("LOGS_DIR", $_SERVER["DOCUMENT_ROOT"]."/{$logDir}");
+            }else{
+                define("LOGS_DIR", ITCUBE_PATH . DIR_SEP . "Logs");
+            }
         }
 
 

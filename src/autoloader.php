@@ -3,7 +3,7 @@ set_include_path( __DIR__ . ';' . get_include_path() );
 define('DIR_SEP',      DIRECTORY_SEPARATOR);
 define('ITCUBE_PATH', (string)__DIR__ );
 define('ROOT',        (string)str_replace( '\\itcube', '', __DIR__ ));
-define('LOGS_DIR',    ITCUBE_PATH . DIR_SEP . 'Logs');
+//define('LOGS_DIR',    ITCUBE_PATH . DIR_SEP . 'Logs');
 /**
 * (ACCESS_VIEW | ACCESS_EDIT) = 5
 * 

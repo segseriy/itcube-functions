@@ -351,12 +351,12 @@ namespace itcube{
          * @return bool|string
          */
         public static function get_file_extension($file_path) {
-            $basename = basename($file_path); // получение имени файла
-            if ( strrpos($basename, '.')!==false ) { // проверка на наличии в имени файла символа точки
-                // вырезаем часть строки после последнего символа точки в имени файла
+            $basename = basename($file_path); // get filename
+            if ( strrpos($basename, '.')!==false ) { // check if file is't dot
+                // cut part of string after last dot in filename
                 $file_extension = substr($basename, strrpos($basename, '.')+1);
             } else {
-                // в случае отсутствия символа точки в имени файла возвращаем false
+                // if there is no dot in filename return false
                 $file_extension = false;
             }
             return $file_extension;
@@ -365,8 +365,8 @@ namespace itcube{
         /**
          * zip files
          *
-         * @param array $_files  - массив полных путей к файлам
-         * @param string $_zip_name - полный путь к файлу архива
+         * @param array $_files  - array of full paths of files
+         * @param string $_zip_name - full path to zip archive
          * @return bool
          */
         public static function zip_files(array $_files, $_zip_name) {
@@ -401,7 +401,7 @@ namespace itcube{
          * @return bool|mixed|string
          */
         public static function checkurl($url) {
-            // режем левые символы и крайние пробелы
+            // cut unnecessary symbols and trim
             $url=trim(self::pregtrim($url));
             // если пусто - выход
             if (strlen($url)==0) return false;

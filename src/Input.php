@@ -217,10 +217,6 @@
                 return $_array;
             }
 
-            /*if( get_magic_quotes_gpc() ) {
-                $str = stripslashes($str);
-            }*/
-
             return preg_replace("/\015\012|\015|\012/", "\n", $str);
         }
 
