@@ -2,6 +2,11 @@
     "name": "itcube/help-functions",
     "description": "Helpfull functions for PHP 5.3+",
     "type": "library",
+    "support": {
+        "email": "sergseriy@gmail.com",
+        "issues": "https://github.com/segseriy/itcube-functions/issues",
+        "source": "https://github.com/segseriy/itcube-functions"
+    },
     "require": {
         "php": ">=5.3"
     },
