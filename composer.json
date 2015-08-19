@@ -25,8 +25,6 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "itcube\\" : "src"
-        }
+        "files": ["src/autoloader.php"]
     }
 }
