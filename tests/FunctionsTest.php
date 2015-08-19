@@ -26,6 +26,11 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($c, $curval);
     }
 
+    public function testSetHttpStatus(){
+        $return = $this->fixture->set_http_status(404);
+        $this->assertFalse($return);
+    }
+
     public function providerArrayCount(){
         return array(
             array(
